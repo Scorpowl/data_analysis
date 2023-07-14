@@ -34,4 +34,3 @@ def grab_col_names(dataframe, cat_th=10, car_th=30):
     return cat_col , num_cols , cat_but_car
 
 cat_col , num_cols , cat_but_car = grab_col_names(df)
-print(cat_col,end="\n")
