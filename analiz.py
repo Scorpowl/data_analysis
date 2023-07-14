@@ -41,5 +41,6 @@ for col in cat_cols:
         cat_summary(df,col, plot= True)
     else:
         cat_summary(df,col, plot= True)
-    
+
+
 
