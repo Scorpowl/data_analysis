@@ -37,7 +37,7 @@ def outlier_th(dataframe, col_name, q1=0.25, q3=0.75):
     iqr = quartile3 - quartile1
     up = quartile3 + iqr * 1.5
     low = quartile1 - iqr * 1.5
-    return up , low
+    return low , up
 
 def check_outlier(dataframe,col_name):
     up , low = outlier_th(dataframe,col_name)
@@ -66,27 +66,38 @@ def grab_col_names(dataframe, cat_th = 10, car_th = 20):
 
     return cat_cols, num_cols, cat_but_car
 
-cat_cols, num_cols, cat_but_car = grab_col_names(dff)
+# cat_cols, num_cols, cat_but_car = grab_col_names(dff)
+
+# for col in num_cols:
+#     print(col, check_outlier(dff,col))
+
+def grab_outliers(dataframe,col_name,index=False):
+    low, up = outlier_th(df,col_name)
+
+    if dataframe[((dataframe[col_name] < low) | (dataframe[col_name] > up))].shape[0] >10:
+        print(dataframe[((dataframe[col_name] < low) | (dataframe[col_name] > up))].head())
+    else:
+        print(dataframe[((dataframe[col_name] < low) | (dataframe[col_name] > up))])
+
+    if index:
+        outlier_index = dataframe[((dataframe[col_name] < low) | (dataframe[col_name] > up))].index
+        print(outlier_index)
+
+# grab_outliers(df,"Age",index=True)
+
+def remove_outliers(dataframe,col_name):
+    low, up = outlier_th(dataframe,col_name)
+    df_without = dataframe[~((dataframe[col_name] < low) | (dataframe[col_name] > up))]
+    return df_without
+
+
+cat_cols, num_cols, cat_but_car = grab_col_names(df)
+num_cols = [col for col in num_cols if col not in "PassengerId"]
 
 for col in num_cols:
-    print(col, check_outlier(dff,col))
+    new_df = remove_outliers(df,col)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+print(new_df.shape)
 
 
 
