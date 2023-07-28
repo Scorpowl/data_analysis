@@ -91,13 +91,13 @@ def remove_outliers(dataframe,col_name):
     return df_without
 
 
-cat_cols, num_cols, cat_but_car = grab_col_names(df)
-num_cols = [col for col in num_cols if col not in "PassengerId"]
+# cat_cols, num_cols, cat_but_car = grab_col_names(df)
+# num_cols = [col for col in num_cols if col not in "PassengerId"]
 
-for col in num_cols:
-    new_df = remove_outliers(df,col)
+# for col in num_cols:
+#     new_df = remove_outliers(df,col)
 
-print(new_df.shape)
+# print(new_df.shape) 
 
 
 
