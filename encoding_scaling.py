@@ -19,6 +19,8 @@ def load():
     data = pd.read_csv("titanic.csv")
     return data
 
+df = load()
+
 def outlier_th(dataframe, col_name, q1=0.25, q3=0.75):
     quartile1 = dataframe[col_name].quantile(q1)
     quartile3 = dataframe[col_name].quantile(q3)
@@ -71,11 +73,48 @@ def remove_outliers(dataframe,col_name):
     df_without = dataframe[~((dataframe[col_name] < low) | (dataframe[col_name] > up))]
     return df_without
 
-df = load()
-print(df.head())
+def label_encoder(dataframe,binary_col):
+    label_encoder = LabelEncoder()
+    dataframe[binary_col] = label_encoder.fit_transform(dataframe[binary_col])
+    return dataframe
 
 
+# binary_cols = [col for col in df.columns if df[col].dtype not in [int,float] and df[col].nunique() == 2]
 
+# for col in binary_cols:
+#     label_encoder(df,col)
+
+# print(df)
+
+# dff = load_application_train()
+
+# binary_cols = [col for col in dff.columns if dff[col].dtype not in ["int64","float64"] and dff[col].nunique() == 2]
+
+# for col in binary_cols:
+#     label_encoder(dff,col)
+
+# print(dff[binary_cols].head())
+
+# a = pd.get_dummies(df, columns=["Embarked"]).head()
+# binary_cols = [col for col in a.columns if a[col].dtype not in [int,float] and a[col].nunique() == 2]
+
+# for col in binary_cols:
+#     label_encoder(a,col)
+# print(a)
+
+def one_hot_encoder(dataframe, categorical_cols, drop_first = False):
+    dataframe = pd.get_dummies(dataframe, columns=categorical_cols,drop_first=drop_first)
+    return dataframe
+
+cat_cols, num_cols, cat_but_car = grab_col_names(df)
+ohe_cols = [col for col in df.columns if 10 >= df[col].nunique() > 2]
+print(ohe_cols)
+
+a = one_hot_encoder(df, ohe_cols)
+for col in a.columns:
+    label_encoder(a,col)
+
+print(a)
 
 
 
