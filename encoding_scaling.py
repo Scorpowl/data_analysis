@@ -123,13 +123,17 @@ def cat_summary(dataframe, col_name, plot = False):
         sns.countplot(x=dataframe[col_name], data=dataframe)
         plt.show()
 
-for i in cat_cols:
-    cat_summary(dff,i)
+# for i in cat_cols:
+#     cat_summary(dff,i)
 
+def rare_analyser(dataframe, target , cat_cols):
+    for col in cat_cols:
+        print(col,":", len(dataframe[col].value_counts()))
+        print(pd.DataFrame({"COUNT": dataframe[col].value_counts(),
+                                       "RATIO": dataframe[col].value_counts() / len(dataframe),
+                                       "TARGET MEAN": dataframe.groupby(col)[target].mean()}), end="\n\n\n")
 
-
-
-
+rare_analyser(dff, "TARGET", cat_cols)
 
 
 
