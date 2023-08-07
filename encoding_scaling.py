@@ -106,15 +106,31 @@ def one_hot_encoder(dataframe, categorical_cols, drop_first = False):
     dataframe = pd.get_dummies(dataframe, columns=categorical_cols,drop_first=drop_first)
     return dataframe
 
-cat_cols, num_cols, cat_but_car = grab_col_names(df)
-ohe_cols = [col for col in df.columns if 10 >= df[col].nunique() > 2]
-print(ohe_cols)
+# cat_cols, num_cols, cat_but_car = grab_col_names(df)
+# ohe_cols = [col for col in df.columns if 10 >= df[col].nunique() > 2]
+# print(ohe_cols)
 
-a = one_hot_encoder(df, ohe_cols)
-for col in a.columns:
-    label_encoder(a,col)
+dff = load_application_train()
+dff["NAME_EDUCATION_TYPE"].value_counts()
 
-print(a)
+cat_cols, num_cols, cat_but_car = grab_col_names(dff)
+
+def cat_summary(dataframe, col_name, plot = False):
+    print(pd.DataFrame({col_name: dataframe[col_name].value_counts(),
+                        "Ratio": 100 * dataframe[col_name].value_counts() / len(dataframe)}))
+    print("#########################################")
+    if plot:
+        sns.countplot(x=dataframe[col_name], data=dataframe)
+        plt.show()
+
+for i in cat_cols:
+    cat_summary(dff,i)
+
+
+
+
+
+
 
 
 
