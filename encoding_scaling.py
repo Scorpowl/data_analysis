@@ -161,8 +161,8 @@ df["Age_minmax_scaler"] = mms.fit_transform(df[["Age"]])
 
 print(df.describe().T)
 
-
-
+df["Age_qcut"]  = pd.qcut(df["Age"], 5)
+print(df)
 
 
 
