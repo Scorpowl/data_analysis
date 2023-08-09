@@ -145,4 +145,8 @@ print(df)
 
 print(df.groupby("NEW_NAME_DR").agg({"Survived":"mean"}))
 
+df["NEW_TITLE"] = df.Name.str.extract(" ([A-Za-z]+)\.",expand=False)
 
+a = df[["NEW_TITLE","Survived","Age"]].groupby(["NEW_TITLE"]).agg({"Survived":"mean","Age":["count","mean"]})
+
+print(a)
