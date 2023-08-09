@@ -108,3 +108,18 @@ def rare_encoder(dataframe, rare_perc):
         temp_df[var] = np.where(temp_df[var].isin(rare_labels), "Rare", temp_df[var])
 
     return temp_df
+
+df = load()
+
+df["NEW_CABIN_BOOL"] = df["Cabin"].notnull().astype(int)
+
+
+
+print(df)
+
+
+
+
+
+
+
