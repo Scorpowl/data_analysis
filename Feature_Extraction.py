@@ -15,11 +15,13 @@ def load_application_train():
     data = pd.read_csv("application_train.csv")
     return data
 
+def course_reviews():
+    data = pd.read_csv("course_reviews.csv")
+    return data
+
 def load():
     data = pd.read_csv("titanic.csv")
     return data
-
-df = load()
 
 def outlier_th(dataframe, col_name, q1=0.25, q3=0.75):
     quartile1 = dataframe[col_name].quantile(q1)
@@ -137,16 +139,22 @@ df = load()
 #                                                                             df.loc[df["NEW_IS_ALONE"] == "NO", "Survived"].shape[0]])
 # print('Test Stat = %.4f, p-value = %.4f' % (test_stat, pvalue))
 
-df["NEW_NAME_WORD_COUNT"] = df["Name"].apply(lambda x : len(str(x).split(" ")))
-print(df)
+# df["NEW_NAME_WORD_COUNT"] = df["Name"].apply(lambda x : len(str(x).split(" ")))
+# print(df)
 
-df["NEW_NAME_DR"] = df["Name"].apply(lambda x: len([x for x in x.split() if x.startswith("Dr")]))
-print(df)
+# df["NEW_NAME_DR"] = df["Name"].apply(lambda x: len([x for x in x.split() if x.startswith("Dr")]))
+# print(df)
 
-print(df.groupby("NEW_NAME_DR").agg({"Survived":"mean"}))
+# print(df.groupby("NEW_NAME_DR").agg({"Survived":"mean"}))
 
-df["NEW_TITLE"] = df.Name.str.extract(" ([A-Za-z]+)\.",expand=False)
+# df["NEW_TITLE"] = df.Name.str.extract(" ([A-Za-z]+)\.",expand=False)
 
-a = df[["NEW_TITLE","Survived","Age"]].groupby(["NEW_TITLE"]).agg({"Survived":"mean","Age":["count","mean"]})
+# df[["NEW_TITLE","Survived","Age"]].groupby(["NEW_TITLE"]).agg({"Survived":"mean","Age":["count","mean"]})
 
-print(a)
+
+
+
+
+
+
+
